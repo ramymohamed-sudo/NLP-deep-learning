@@ -43,6 +43,28 @@ model.summary
 model.compile(loss='binary_crossentropy',optimizer='adam', metrics=['accuracy'])
 model.fit(x_train,y_train,epochs=10,validation_data=(x_test,y_test))
 
+# to evaluate 
+x = ['I am thrilled to see this']
+x = get_clean(x)
+x = toeknizer.texts_to_sequences(x)
+vec = pad_sequences(x,max_len,padding='post')
+np.argmax(model.predict(vec), axis=-1)
+
+
+
+
+""" BERT NN """
+! pip install ktrain 
+from ktrain import text
+import ktrain
+
+
+
+
+
+
+
+
 
 
 
