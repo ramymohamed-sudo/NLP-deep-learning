@@ -53,12 +53,35 @@ np.argmax(model.predict(vec), axis=-1)
 
 
 
-""" BERT NN """
+""" Sentiment Classification using BERT Model """
 ! pip install ktrain 
 from ktrain import text
 import ktrain
+(x_train, y_train), (x_test,y_test), preproc = text.texts_from_df(train_df=tweet,text_column='text',label_columns='target',max_len=40,preprocess_mode='bert')
+model = text.text_classifier(name='bert',train_data =(x_train, y_train), preproc = preproc)
+learner = ktrain.get_learner(model=model, train_data = (x_train, y_train), val_data = (x_test,y_test), batch_size=64)
+learner.fit_onecycle(lr=2e-5, epochs=2) # lr=2e-4
+predictor = ktrain.get_predictor(learner.model,preproc)
+data = ['I had car accident', 'I met him today by accident']
+y_pred = predictor.predict(data[0], return_proba=True)
+classes = predictor.get_classes()
+classes.index(y_pred)   # 0 or 1 
 
 
+""" Sentiment Classification using distil-BERT Model """
+! git clone https://github.com/laxmimerit/IMDB-Movie-Reviews-Large-Dataset-50k.git
+data_test = pd.read_excel('path',dtype=str)    
+data_train = pd.read_excel('path',dtype=str)   
+text.print_text_classifiers 
+(train, , val, preproc) = text.texts_from_df(train_df = data_train,text_column='Reviews',label_columns='Sentiment',val_df = data_test,
+                                             max_len=512,preprocess_mode='distilbert')    # 512 -> 400 to be faster 
+model = text.text_classifier(name='distilbert',train_data =train, preproc = preproc)
+learner = ktrain.get_learner(model=model, train_data = train, val_data = val, batch_size= 6)
+learner.fit_onecycle(lr=2e-5, epochs=2) # lr=2e-4
+predictor = ktrain.get_predictor(learner.model,preproc)
+predictor.save('google drive/distilbert.h5')    # predictor = ktrain.load_predictor('')
+y_pred = predictor.predict(data,return_proba=True)
+classes = predictor.get_classes()
 
 
 
