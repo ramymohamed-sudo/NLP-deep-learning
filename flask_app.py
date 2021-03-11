@@ -41,8 +41,13 @@ if __name__ == "__main__":      # __main__ is called hard coded string
     
 
 
-
-    
+""" To test the ML model from local Machine """
+import requests, json
+x = requests.get('http://localhost:5000')
+data = {‘review’: “This is a great movie. I loved it.”}
+data = json.dumps(data)
+x = requests.post('http://localhost:5000/get_prediction',data=data)
+print(x.text)
     
 # JSON JavaScript Object Notation:
 >> import requests, json 
@@ -63,3 +68,6 @@ To read from  json file
 >> json_data = json.load(file)
 >> file.close 
 >>  json.loads(json_data)		to give a return dictionary
+              
+
+
