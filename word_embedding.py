@@ -32,6 +32,18 @@ word_vectors = KeyedVectors.load_word2vec_format('path/file.bin', binary=True)  
 
 
 # 1-2- from Spacy 
+# python -m spacy download en_core_web_lg		# from it we get the word2vec
+import spacy
+nlp = spacy.load('en_core_web_lg') 
+nlp.max_length = 1198623
+# doc = nlp('x')    # x = 'cat dog'
+# vec = doc.vector        # now, we need to get this vector in the form of numpy array 
+tweet['vec'] = tweet['text'].apply(lambda x: nlp('x').vector)     # This is word2vec word embedding from Spacy 
+X = tweet['vec'].to_numpy()
+X = X.reshape(-1,1)
+X = np.concatenate(np.concatenate(X,axis=0),axis=0).reshape(-1,300)           # X.shape = (7613,300)
+
+
 
 
 # 2- Glove    vocab size = 400,000
