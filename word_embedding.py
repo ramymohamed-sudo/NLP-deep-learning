@@ -8,12 +8,7 @@
 # 1-0- Basic code from the udemy course
 
 
-# 1-1- from Gensim
-import gensim
-from gensim.models import KeyedVectors
-word_vectors = KeyedVectors.load_word2vec_format('path/file.bin', binary=True)    # # 3 millions words and phrases 
-
-
+# 1-1- from Gensim            # NOTE: There are more ways to get word vectors in Gensim than just Word2Vec. See wrappers for FastText, VarEmbed and WordRank.
 
 from gensim.models import Word2Vec
 w2v_model = Word2Vec(brown.sents(), size=128, window=5, min_count=3, workers=4)     # word2vec = Word2Vec(all_words, min_count=2)
@@ -24,9 +19,12 @@ better_w2v_model = Word2Vec(Text8Corpus('data_text8_corpus.txt'), size=100, wind
 words_voc = []
 for word in better_w2v_model.wv.vocab:
       words_voc.append(better_w2v_model.wv[word])
-    
-    
-    
+
+# The word vectors can also be instantiated from an existing file on disk in the word2vec C format as a KeyedVectors instance:
+import gensim
+from gensim.models import KeyedVectors
+word_vectors = KeyedVectors.load_word2vec_format('path/file.bin', binary=True)    # # 3 millions words and phrases 
+
     
 # gensim in general
 # gensim lemmatizer 
