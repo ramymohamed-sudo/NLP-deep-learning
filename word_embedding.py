@@ -29,7 +29,8 @@ for word in better_w2v_model.wv.vocab:
     
     
 # gensim in general
-# wordnet 
+# gensim lemmatizer 
+# wordnet lemmatizer
 
 
 # 1-2- from Spacy 
