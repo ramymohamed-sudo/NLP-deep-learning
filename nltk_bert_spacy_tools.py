@@ -59,16 +59,38 @@ nltk.download('brown')
 from nltk.corpus import brown
 print(brown.sents())
 
-from gensim.models import Word2Vec
-w2v_model = Word2Vec(brown.sents(), size=128, window=5, min_count=3, workers=4)     # word2vec = Word2Vec(all_words, min_count=2)
-ger_vec = w2v_model.wv['Germany']
-w2v_model.wv.most_similar('Vienna')
-w2v_model.wv.most_similar(positive=['woman',  'king'], negative=['man'],topn=5)
-better_w2v_model = Word2Vec(Text8Corpus('data_text8_corpus.txt'), size=100, window=5, min_count=150, workers=4)
-words_voc = []
-for word in better_w2v_model.wv.vocab:
-      words_voc.append(better_w2v_model.wv[word])
+# _________________________________________________________________________________________________________#
 
+""" Gensim:                               https://radimrehurek.com/gensim/models/ldamodel.html
+Gensim is a Python library that specializes in identifying semantic similarity between two documents through vector space modeling and topic modeling toolkit.
+"""
+# Ex) doc to bag of words bow 
+from gensim.corpora import Dictionary     # Dictionary encapsulates the mapping between normalized words and their integer ids.
+dct = Dictionary(["máma mele maso".split(), "ema má máma".split()])           # Dictionary(corpus)
+dct.doc2bow(["this", "is", "máma"])      # dct.docebow(document (list of str) – Input document.)
+# Convert document into the bag-of-words (BoW) format = list of (token_id, token_count) tuples.
+dct.doc2bow(["this", "is", "máma"], return_missing=True)
+
+
+# Ex) Train an Latent Dirichlet Allocation (LDA) model using a Gensim corpus
+from gensim.test.utils import common_texts
+from gensim.corpora.dictionary import Dictionary
+# Create a corpus from a list of texts
+common_dictionary = Dictionary(common_texts)
+common_corpus = [common_dictionary.doc2bow(text) for text in common_texts]
+# Train the model on the corpus.
+lda = LdaModel(common_corpus, num_topics=10)
+
+
+# Ex) Word2Vec from gensim
+# see word_embedding.py
+
+
+
+# gensim lemmatizer ??
+# wordnet lemmatizer 
+# _________________________________________________________________________________________________________#
+      
 # Lemmatizer and Stemmer  
 from nltk.stem import WordNetLemmatizer,PorterStemmer
 from nltk.stem.porter import PorterStemmer
