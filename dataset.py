@@ -16,3 +16,10 @@ def get_sentences():
 # 3- Text8Corpus from Gensim
 gensim.models.word2vec.Text8Corpus(fname, max_sentence_length=10000) # Iterate over sentences from the “text8” corpus, unzipped from http://mattmahoney.net/dc/text8.zip.
 # see also LineSentence in word2vec fromm Gensim
+
+
+
+# 4- # textmining datasets   - It is used for text classifier bow_classifier.py
+""" https://github.com/Cynwell/Text-Level-GNN """
+# open the file.txt, then see raw data -> wget url
+
