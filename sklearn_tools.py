@@ -100,6 +100,9 @@ kmeans.fit(feature_matrix)
 
 """ Other Models """
 pass
+# ensemble 
+from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier
+
 
 
 
