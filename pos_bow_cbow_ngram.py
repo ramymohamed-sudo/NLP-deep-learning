@@ -17,6 +17,39 @@
 # Speech recognition: to check if a sequence of words has a high probability or not
 
 
+
+>>> w.lemmatize()		'octopus'
+word("went").lemmatize("v")	 # Pass in WordNet part of speech (verb)
+
+from nltk.tokenize import TweetTokenizer
+
+
+# using nltk
+from nltk.tokenize import word_tokenize
+pos=nltk.pos_tag(word_tokenize(text))
+#  tokenized_sentence = nltk.word_tokenize(sentence)		(== str.split())
+# 
+pos=list(map(list,zip(*pos)))[1]
+# Name Entity Recognition NER via NLTK:
+nltk.download('words')
+nltk.download('maxent_ne_chunker')
+tagged_words = nltk.pos_tag(words)
+nemaedEnt = nltk.ne_chunk(tagged_words)
+nemaedEnt.draw()
+
+
+
+
+# using spacy
+import spacy
+nlp = spacy.load('en_core_web_sm')
+doc = nlp(u'Tesla is looking at buying U.S. startup for $6 million')
+for token in doc:
+print(token.text, token.pos_, token.dep_)
+
+from spacy.tokens import span 
+
+
 # using TextBlob
 # TextBlob aims to provide access to common text-processing operations through a familiar interface.		
 # https://textblob.readthedocs.io/en/dev/quickstart.html
@@ -35,25 +68,40 @@ w = Word("octopi")
 pos=nltk.pos_tag(word_tokenize(text))
 
 
->>> w.lemmatize()		'octopus'
-word("went").lemmatize("v")	 # Pass in WordNet part of speech (verb)
+
+Pattern Lemmatizer
+Pattern allows part-of-speech tagging, sentiment analysis, vector space modeling, SVM, clustering, n-gram search, and WordNet. 
+You can take advantage of a DOM parser, a web crawler, as well as some useful APIs like Twitter or Facebook. 
+Still, the tool is essentially a web miner and might not be enough for completing other natural language processing tasks
 
 
-# using nltk
-# Name Entity Recognition NER via NLTK:
-nltk.download('words')
-nltk.download('maxent_ne_chunker')
-tagged_words = nltk.pos_tag(words)
-nemaedEnt = nltk.ne_chunk(tagged_words)
-nemaedEnt.draw()
+TextBlob Lemmatizer
+from textblob import Word
+w = Word("octopi")
+w.lemmatize()		'octopus'
+word("went").lemmatize("v")	 # Pass in WordNet part of speech 
 
+nltk
+from nltk.stem import WordNetLemmatizer,PorterStemmer  #  Wordnet Lemmatizer with appropriate POS tag
 
-# using spacy
-import spacy
-nlp = spacy.load('en_core_web_sm')
-doc = nlp(u'Tesla is looking at buying U.S. startup for $6 million')
+Gensim Lemmatize
+Though we could not perform stemming with spaCy, we can perform lemmatization using spaCy. To do so, we need to use the lemma_ attribute on the spaCy document.
+
+spacy
+token.lemma gives number, token.lemma_ gives word such as “run” “be”
+print(f'{token.text:{12}} {token.pos_:{6}} {token.lemma:<{22}} {token.lemma_}')
+>> lemma = token.lemma_
+>> if lemma = ‘-PRON-’ or lemma=’be’
+>> lemma = token.text
+
+Tokenization in Spacy:
+text = 'Apple is looking for buying a UK startup for $1 billion dollar'
+doc = nlp(text)
 for token in doc:
-print(token.text, token.pos_, token.dep_)
+    print(token.text)
+
+  
+
 
 
 # Basic does for Pos
@@ -63,7 +111,7 @@ print(token.text, token.pos_, token.dep_)
 
 
 
-""" Bag of words """
+""" ----------------------------------- Bag of words  -----------------------------------  """
 # Bag of Words just creates a set of vectors containing the count of word occurrences in the document (reviews), 
 # while the TF-IDF model contains information on the more important words and the less important ones as well.
 
