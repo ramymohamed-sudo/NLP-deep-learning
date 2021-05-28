@@ -101,6 +101,21 @@ for token in doc:
     print(token.text)
 
   
+Stemming
+Porter stemmer
+Snowball stemmer
+Lancaster stemmer
+Regex-based Stemmer
+
+
+from nltk.stem import WordNetLemmatizer,PorterStemmer
+	OR from nltk.stem.porter import PorterStemmer
+	 from nltk.stem.snowball import SnowballStemmer
+S_stemmer = SnowballStemmer(language=”english”)
+
+>> stemmer = PorterStemmer()
+>> tokens = [stemmer.stem(t) for t in tokens]	where tokens = words 
+
 
 
 
