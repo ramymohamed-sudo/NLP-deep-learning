@@ -23,3 +23,15 @@ gensim.models.word2vec.Text8Corpus(fname, max_sentence_length=10000) # Iterate o
 """ https://github.com/Cynwell/Text-Level-GNN """
 # open the file.txt, then see raw data -> wget url
 
+
+# 5- glove word embedding 
+# https://nlp.stanford.edu/projects/glove/
+# https://www.kaggle.com/watts2/glove6b50dtxt
+
+# 6- Binary file for word2vec 
+brew install wget
+wget -c "https://s3.amazonaws.com/dl4j-distribution/GoogleNews-vectors-negative300.bin.gz"
+gzip -d GoogleNews-vectors-negative300.bin.gz
+from gensim import models
+w = models.KeyedVectors.load_word2vec_format('../GoogleNews-vectors-negative300.bin', binary=True)
+
