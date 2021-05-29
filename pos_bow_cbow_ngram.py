@@ -4,8 +4,8 @@
 
 # nltk 
 from nltk.tokenize import TweetTokenizer
-
-
+from nltk.tokenize import word_tokenize
+word_tokenize(text)
 
 # Tokenization in Spacy:
 text = 'Apple is looking for buying a UK startup for $1 billion dollar'
@@ -13,21 +13,14 @@ doc = nlp(text)
 for token in doc:
     print(token.text)
 
-
-
-
-# using nltk
-from nltk.tokenize import word_tokenize
-pos=nltk.pos_tag(word_tokenize(text))
-#  tokenized_sentence = nltk.word_tokenize(sentence)		(== str.split())
-# 
-pos=list(map(list,zip(*pos)))[1]
-
+# Textblob
+wiki = TextBlob("Python is a high-level, general-purpose programming language.")
+wiki.words 		# Tokenization
+wiki.sentences 	# returns sentence not words 
 
 
 
 """ -----------------------------------  Part of Speech Tagging PoS  ----------------------------------- """
-
 # Part of Speech (hereby referred to as POS) Tags are useful for building parse trees, which are used in building NERs 
 # (most named entities are Nouns) and extracting relations between words. POS Tagging is also essential for building lemmatizers 
 # which are used to reduce a word to its root form.
@@ -36,11 +29,17 @@ pos=list(map(list,zip(*pos)))[1]
 
 # POS tagging is critically important in search queries, speech recognition, and search
 
-
 # because POS tags describe the characteristics structure of lexical terms in a sentence or text. You can use them to make assumptions about semantics. They're used for 
 # identifying named entities too and a sentence
 # Co-reference resolution, i,e., it refers to the Eiffel tower
 # Speech recognition: to check if a sequence of words has a high probability or not
+
+from nltk.tokenize import word_tokenize
+pos=nltk.pos_tag(word_tokenize(text))
+#  tokenized_sentence = nltk.word_tokenize(sentence)		(== str.split())
+# 
+pos=list(map(list,zip(*pos)))[1]
+
 
 # using spacy
 import spacy
@@ -58,19 +57,10 @@ print(token.pos_, token.dep_)		# token.text is the token
 # https://textblob.readthedocs.io/en/dev/quickstart.html
 wiki = TextBlob("Python is a high-level, general-purpose programming language.")
 wiki.tags	#Part-of-speech tags can be accessed through the tags property
-wiki.noun_phrases		#Noun Phrase Extraction
+wiki.noun_phrases		# Noun Phrase Extraction
 Wiki.sentiment: # The sentiment property returns a namedtuple of the form Sentiment(polarity, subjectivity). The polarity score is a float within the range [-1.0, 1.0]. The subjectivity is a float within the range [0.0, 1.0] where 0.0 is very objective and 1.0 is very subjective.	Testimonial.sentiment.polarity
-wiki.words 		# Tokenization
-zen.sentences 	# returns sentence not words 
 sentence.words[2].singularize()
 sentence.words[-1].pluralize()
-# Lemmantize:
-# Lemmatization is the process of converting a word to its base form.
-from textblob import Word
-w = Word("octopi")
-pos=nltk.pos_tag(word_tokenize(text))
-
-
 
 
 # Basic does for Pos
@@ -117,7 +107,7 @@ lemma = token.text
 # Lancaster stemmer
 # Regex-based Stemmer
 
-
+# nltk 
 from nltk.stem import PorterStemmer	# OR from nltk.stem.porter import PorterStemmer
 stemmer = PorterStemmer()
 tokens = [stemmer.stem(t) for t in tokens]	# where tokens = words 
@@ -163,6 +153,39 @@ vectorizer = CountVectorizer()
 X = vectorizer.fit_transform(corpus)
 print(vectorizer.get_feature_names())
 print(X.toarray(),type(X.toarray()),X.shape)
+
+
+Bag of Words is a commonly used model that depends on word frequencies or occurrences to train a classifier. 
+This model creates an occurrence matrix for documents or sentences irrespective of its grammatical structure or word order. 
+
+
+""" -------------------------------------- Continuous Bag of Words  -----------------------------------  """
+
+
+
+""" ----------------------------------- Skip Gram and N-Gram extraction  -----------------------------------  """
+
+
+
+Basic Dependency Grammar
+Latent Semantic Indexing
+
+
+
+Dependency Parsing and Constituency Parsing
+Dependency Parsing, also known as Syntactic parsing in NLP is a process of assigning syntactic structure to a sentence and identifying its dependency parses. This process is crucial to understand the correlations between the “head” words in the syntactic structure.
+The process of dependency parsing can be a little complex considering how any sentence can have more than one dependency parses. Multiple parse trees are known as ambiguities. Dependency parsing needs to resolve these ambiguities in order to effectively assign a syntactic structure to a sentence.
+
+Dependency parsing can be used in the semantic analysis of a sentence apart from the syntactic structuring.
+
+# Dependency Visualization 
+>> from spacy import displacy
+ >> displacy.render(doc3, style='ent')
+>> displacy.render(doc, style='dep',options={'distance':100,'compact':True})
+
+
+
+
 
 
 
