@@ -1,6 +1,6 @@
 
 
-""" Part of Speech Tagging PoS"""
+""" Part of Speech Tagging PoS """
 
 # Part of Speech (hereby referred to as POS) Tags are useful for building parse trees, which are used in building NERs 
 # (most named entities are Nouns) and extracting relations between words. POS Tagging is also essential for building lemmatizers 
@@ -18,8 +18,7 @@
 
 
 
->>> w.lemmatize()		'octopus'
-word("went").lemmatize("v")	 # Pass in WordNet part of speech (verb)
+
 
 from nltk.tokenize import TweetTokenizer
 
@@ -45,9 +44,10 @@ import spacy
 nlp = spacy.load('en_core_web_sm')
 doc = nlp(u'Tesla is looking at buying U.S. startup for $6 million')
 for token in doc:
-print(token.text, token.pos_, token.dep_)
+print(token.pos_, token.dep_)		# token.text is the token 
 
-from spacy.tokens import span 
+# creating a span object of spacy
+# from spacy.tokens import span 
 
 
 # using TextBlob
@@ -69,53 +69,11 @@ pos=nltk.pos_tag(word_tokenize(text))
 
 
 
-Pattern Lemmatizer
-Pattern allows part-of-speech tagging, sentiment analysis, vector space modeling, SVM, clustering, n-gram search, and WordNet. 
-You can take advantage of a DOM parser, a web crawler, as well as some useful APIs like Twitter or Facebook. 
-Still, the tool is essentially a web miner and might not be enough for completing other natural language processing tasks
 
 
-TextBlob Lemmatizer
-from textblob import Word
-w = Word("octopi")
-w.lemmatize()		'octopus'
-word("went").lemmatize("v")	 # Pass in WordNet part of speech 
 
-nltk
-from nltk.stem import WordNetLemmatizer,PorterStemmer  #  Wordnet Lemmatizer with appropriate POS tag
-
-Gensim Lemmatize
-Though we could not perform stemming with spaCy, we can perform lemmatization using spaCy. To do so, we need to use the lemma_ attribute on the spaCy document.
-
-spacy
-token.lemma gives number, token.lemma_ gives word such as “run” “be”
-print(f'{token.text:{12}} {token.pos_:{6}} {token.lemma:<{22}} {token.lemma_}')
->> lemma = token.lemma_
->> if lemma = ‘-PRON-’ or lemma=’be’
->> lemma = token.text
-
-Tokenization in Spacy:
-text = 'Apple is looking for buying a UK startup for $1 billion dollar'
-doc = nlp(text)
-for token in doc:
-    print(token.text)
 
   
-Stemming
-Porter stemmer
-Snowball stemmer
-Lancaster stemmer
-Regex-based Stemmer
-
-
-from nltk.stem import WordNetLemmatizer,PorterStemmer
-	OR from nltk.stem.porter import PorterStemmer
-	 from nltk.stem.snowball import SnowballStemmer
-S_stemmer = SnowballStemmer(language=”english”)
-
->> stemmer = PorterStemmer()
->> tokens = [stemmer.stem(t) for t in tokens]	where tokens = words 
-
 
 
 
@@ -123,6 +81,77 @@ S_stemmer = SnowballStemmer(language=”english”)
 # 1- Using logisitic regression 
 # 2- Using Recurrent NN
 # 3- Using HMM
+
+
+""" ----------------------------------- Tokenization  -----------------------------------  """
+
+# Tokenization in Spacy:
+text = 'Apple is looking for buying a UK startup for $1 billion dollar'
+doc = nlp(text)
+for token in doc:
+    print(token.text)
+
+""" ----------------------------------- Lemmatization  -----------------------------------  """
+# Pattern Lemmatizer
+# Pattern allows part-of-speech tagging, sentiment analysis, vector space modeling, SVM, clustering, n-gram search, and WordNet. 
+# You can take advantage of a DOM parser, a web crawler, as well as some useful APIs like Twitter or Facebook. 
+# Still, the tool is essentially a web miner and might not be enough for completing other natural language processing tasks
+
+# nltk
+from nltk.stem import WordNetLemmatizer,PorterStemmer  #  Wordnet Lemmatizer with appropriate POS tag
+
+# TextBlob Lemmatizer
+from textblob import Word
+w = Word("octopi")
+w.lemmatize()		# 'octopus'
+word("went").lemmatize("v")	 # Pass in WordNet part of speech 
+
+
+# Gensim Lemmatize
+
+# spacy
+# Though we could not perform stemming with spaCy, we can perform lemmatization using spaCy. To do so, we need to use the lemma_ attribute on the spaCy document.
+token.lemma gives number, token.lemma_ gives word such as “run” “be”
+print(f'{token.text:{12}} {token.pos_:{6}} {token.lemma:<{22}} {token.lemma_}')
+lemma = token.lemma_
+if lemma = ‘-PRON-’ or lemma=’be’
+lemma = token.text
+
+
+Wordnet Lemmatizer
+Spacy Lemmatizer
+
+TextBlob
+
+CLiPS Pattern
+
+Stanford CoreNLP
+
+Gensim Lemmatizer
+
+TreeTagger
+
+
+""" -------------------------------------- Stemming --------------------------------------  """
+# Porter stemmer
+# Snowball stemmer
+# Lancaster stemmer
+# Regex-based Stemmer
+
+
+from nltk.stem import PorterStemmer	# OR from nltk.stem.porter import PorterStemmer
+stemmer = PorterStemmer()
+tokens = [stemmer.stem(t) for t in tokens]	# where tokens = words 
+
+from nltk.stem.snowball import SnowballStemmer
+S_stemmer = SnowballStemmer(language=”english”)
+
+
+""" ----------------------------------- Name Entity Recoginition  -----------------------------------  """
+
+
+
+""" ----------------------------------- Dependency  -----------------------------------  """
 
 
 
