@@ -104,6 +104,8 @@ pass
 from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier
 
 
+>> from sklearn.cluster import KMeans
+>> from sklearn.pipeline import Pipeline
 
 
 
