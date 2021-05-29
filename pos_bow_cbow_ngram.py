@@ -1,6 +1,32 @@
 
 
-""" Part of Speech Tagging PoS """
+""" ----------------------------------- Tokenization  -----------------------------------  """
+
+# nltk 
+from nltk.tokenize import TweetTokenizer
+
+
+
+# Tokenization in Spacy:
+text = 'Apple is looking for buying a UK startup for $1 billion dollar'
+doc = nlp(text)
+for token in doc:
+    print(token.text)
+
+
+
+
+# using nltk
+from nltk.tokenize import word_tokenize
+pos=nltk.pos_tag(word_tokenize(text))
+#  tokenized_sentence = nltk.word_tokenize(sentence)		(== str.split())
+# 
+pos=list(map(list,zip(*pos)))[1]
+
+
+
+
+""" -----------------------------------  Part of Speech Tagging PoS  ----------------------------------- """
 
 # Part of Speech (hereby referred to as POS) Tags are useful for building parse trees, which are used in building NERs 
 # (most named entities are Nouns) and extracting relations between words. POS Tagging is also essential for building lemmatizers 
@@ -15,29 +41,6 @@
 # identifying named entities too and a sentence
 # Co-reference resolution, i,e., it refers to the Eiffel tower
 # Speech recognition: to check if a sequence of words has a high probability or not
-
-
-
-
-
-from nltk.tokenize import TweetTokenizer
-
-
-# using nltk
-from nltk.tokenize import word_tokenize
-pos=nltk.pos_tag(word_tokenize(text))
-#  tokenized_sentence = nltk.word_tokenize(sentence)		(== str.split())
-# 
-pos=list(map(list,zip(*pos)))[1]
-# Name Entity Recognition NER via NLTK:
-nltk.download('words')
-nltk.download('maxent_ne_chunker')
-tagged_words = nltk.pos_tag(words)
-nemaedEnt = nltk.ne_chunk(tagged_words)
-nemaedEnt.draw()
-
-
-
 
 # using spacy
 import spacy
@@ -54,7 +57,7 @@ print(token.pos_, token.dep_)		# token.text is the token
 # TextBlob aims to provide access to common text-processing operations through a familiar interface.		
 # https://textblob.readthedocs.io/en/dev/quickstart.html
 wiki = TextBlob("Python is a high-level, general-purpose programming language.")
- wiki.tags	#Part-of-speech tags can be accessed through the tags property
+wiki.tags	#Part-of-speech tags can be accessed through the tags property
 wiki.noun_phrases		#Noun Phrase Extraction
 Wiki.sentiment: # The sentiment property returns a namedtuple of the form Sentiment(polarity, subjectivity). The polarity score is a float within the range [-1.0, 1.0]. The subjectivity is a float within the range [0.0, 1.0] where 0.0 is very objective and 1.0 is very subjective.	Testimonial.sentiment.polarity
 wiki.words 		# Tokenization
@@ -70,26 +73,10 @@ pos=nltk.pos_tag(word_tokenize(text))
 
 
 
-
-
-
-  
-
-
-
 # Basic does for Pos
 # 1- Using logisitic regression 
 # 2- Using Recurrent NN
 # 3- Using HMM
-
-
-""" ----------------------------------- Tokenization  -----------------------------------  """
-
-# Tokenization in Spacy:
-text = 'Apple is looking for buying a UK startup for $1 billion dollar'
-doc = nlp(text)
-for token in doc:
-    print(token.text)
 
 """ ----------------------------------- Lemmatization  -----------------------------------  """
 # Pattern Lemmatizer
@@ -108,6 +95,8 @@ word("went").lemmatize("v")	 # Pass in WordNet part of speech
 
 
 # Gensim Lemmatize
+gensim.utils.lemmatize(content, allowed_tags=<_sre.SRE_Pattern object>, light=False, stopwords=frozenset([]), min_length=2, max_length=15)
+lemmatize('Hello World! How is it going?! Nonexistentword, 21')   # ['world/NN', 'be/VB', 'go/VB', 'nonexistentword/NN']
 
 # spacy
 # Though we could not perform stemming with spaCy, we can perform lemmatization using spaCy. To do so, we need to use the lemma_ attribute on the spaCy document.
@@ -117,19 +106,9 @@ lemma = token.lemma_
 if lemma = ‘-PRON-’ or lemma=’be’
 lemma = token.text
 
-
-Wordnet Lemmatizer
-Spacy Lemmatizer
-
-TextBlob
-
-CLiPS Pattern
-
-Stanford CoreNLP
-
-Gensim Lemmatizer
-
-TreeTagger
+# CLiPS Pattern
+# Stanford CoreNLP
+# TreeTagger
 
 
 """ -------------------------------------- Stemming --------------------------------------  """
@@ -149,6 +128,12 @@ S_stemmer = SnowballStemmer(language=”english”)
 
 """ ----------------------------------- Name Entity Recoginition  -----------------------------------  """
 
+# NLTK:
+nltk.download('words')
+nltk.download('maxent_ne_chunker')
+tagged_words = nltk.pos_tag(words)
+nemaedEnt = nltk.ne_chunk(tagged_words)
+nemaedEnt.draw()
 
 
 """ ----------------------------------- Dependency  -----------------------------------  """
