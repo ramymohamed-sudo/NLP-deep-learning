@@ -168,7 +168,7 @@ This model creates an occurrence matrix for documents or sentences irrespective 
 
 
 Basic Dependency Grammar
-Latent Semantic Indexing
+
 
 
 
