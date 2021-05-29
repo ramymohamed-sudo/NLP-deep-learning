@@ -1,5 +1,32 @@
 
 
+""" ----------------------------------- Padding  -----------------------------------  """
+# nltk
+>> from nltk.corpus import twitter_samples, stopwords
+>> from nltk.util import ngrams, pad_sequence
+	s = list(ngrams(['This' ,'is','an','NLP','course','at', 'OReilly'],2))
+
+>>pad_sequence(text[0],
+... pad_left=True,
+... left_pad_symbol="<s>",
+... pad_right=True,
+... right_pad_symbol="</s>",
+... n=2)
+
+>> punct = set(string.punctuation)
+
+
+
+# Include special tokens 
+# started with pad, end of line and unk tokens
+Vocab = {'__PAD__': 0, '__</e>__': 1, '__UNK__': 2} 
+
+
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+data = pad_sequences(sequences, maxlen = MAX_SEQUENCE_LENGTH,padding='post',value=0)
+
+
+
 """ ----------------------------------- Tokenization  -----------------------------------  """
 
 # nltk 
@@ -18,6 +45,18 @@ wiki = TextBlob("Python is a high-level, general-purpose programming language.")
 wiki.words 		# Tokenization
 wiki.sentences 	# returns sentence not words 
 
+
+# keras
+from tensorflow.keras.preprocessing.text import Tokenizer
+from tensorflow.keras.preprocessing.sequence import pad_sequences
+import tensorflow_datasets as tfds #(for tokenizers)
+tokenizer = Tokenizer(num_words = MAX_VOCAB_SIZE)
+tokenizer.fit_on_texts(sentences) 		
+
+> tokenizer.word_index
+> MAX_SEQUENCE_LENGTH =5 
+> data = pad_sequences(sequences,
+maxlen = MAX_SEQUENCE_LENGTH,padding='post',value=0)
 
 
 """ -----------------------------------  Part of Speech Tagging PoS  ----------------------------------- """
@@ -157,6 +196,24 @@ print(X.toarray(),type(X.toarray()),X.shape)
 
 Bag of Words is a commonly used model that depends on word frequencies or occurrences to train a classifier. 
 This model creates an occurrence matrix for documents or sentences irrespective of its grammatical structure or word order. 
+
+
+>> CountVectorizer implements both tokenization and occurrence counting in a single class:
+vectorizer = CountVectorizer()
+X = vectorizer.fit_transform(corpus)
+BOW  = X.toarray()
+vectorizer.get_feature_names()
+bow = pd.DataFrame(BOW,columns=vectorizer.get_feature_names())
+
+tfidf = TfidfVectorizer()
+norm=l1 (default =l2)
+ngram_range=(1,2)		(default=1,1)
+analyzer=’word’		tokenization done word by word (‘char’)
+max_features = 5000 (limit the dictionary to 5000)
+
+
+feature_matrix = tfidf.fit_transform(body_all_articles)
+feature_matrix.toarray()
 
 
 """ -------------------------------------- Continuous Bag of Words  -----------------------------------  """
