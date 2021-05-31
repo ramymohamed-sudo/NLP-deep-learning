@@ -1,4 +1,11 @@
 
+n-gram and bow as a special case of n-gram when n =1
+bow vs cbow 
+n-gram and language model
+n-gram codes and its applications 
+
+
+""" ----------------------------------- Stopwords and word.lower()  -----------------------------------  """
 
 """ ----------------------------------- Padding  -----------------------------------  """
 # nltk
