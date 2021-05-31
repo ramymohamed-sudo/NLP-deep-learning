@@ -25,6 +25,7 @@ bow = pd.DataFrame(BOW,columns=vectorizer.get_feature_names())
 
 
 
+# --------------------- --------------------- --------------------- --------------------- ---------------------
 """ Below is the code to use bow for pretrained vectors based on Glove and Word2vec  """ 
 import sys
 import numpy as np
