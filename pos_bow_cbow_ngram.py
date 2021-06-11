@@ -114,6 +114,16 @@ sentence.words[-1].pluralize()
 # 2- Using Recurrent NN
 # 3- Using HMM
 
+""" -----------------------------------  Chunking  ----------------------------------- """
+nltk.download('maxent_ne_chunker')
+
+nemaedEnt = nltk.ne_chunk(tagged_words)
+
+doc9=nlp(‘sentence’)
+doc9.noun_chunks		e.g., Autonomous cars	(nouns)
+
+
+
 """ ----------------------------------- Lemmatization  -----------------------------------  """
 # Pattern Lemmatizer
 # Pattern allows part-of-speech tagging, sentiment analysis, vector space modeling, SVM, clustering, n-gram search, and WordNet. 
