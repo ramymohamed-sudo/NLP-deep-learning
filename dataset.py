@@ -39,6 +39,11 @@ w = models.KeyedVectors.load_word2vec_format('../GoogleNews-vectors-negative300.
 # 6- dataset for sentiment analysis 
 from keras.datasets import imdb
 
+# 7- https://gutenberg.org/: dataset for word embedding like word2vec basic model
+# go to https://gutenberg.org/ebooks/8172 - download UTF-8 format 
+
+  
+
 
 
 
