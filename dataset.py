@@ -35,3 +35,10 @@ gzip -d GoogleNews-vectors-negative300.bin.gz
 from gensim import models
 w = models.KeyedVectors.load_word2vec_format('../GoogleNews-vectors-negative300.bin', binary=True)
 
+
+# 6- dataset for sentiment analysis 
+from keras.datasets import imdb
+
+
+
+
