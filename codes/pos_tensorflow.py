@@ -1,5 +1,7 @@
 
-
+# 1- pos using regression
+# 2- pos using Recurrent NN
+# 3- pos using Hidden Markov model (HMM) 
 
 # from __future__ import print_function, division
 # from builtins import range
