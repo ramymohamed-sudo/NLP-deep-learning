@@ -41,6 +41,7 @@ from keras.datasets import imdb
 
 # 7- https://gutenberg.org/: dataset for word embedding like word2vec basic model
 # go to https://gutenberg.org/ebooks/8172 - download UTF-8 format 
+# also, https://www.gutenberg.org/cache/epub/10773/pg10773.txt is used for text generations by letters
 
   
 
