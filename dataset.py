@@ -18,7 +18,7 @@ gensim.models.word2vec.Text8Corpus(fname, max_sentence_length=10000) # Iterate o
 # see also LineSentence in word2vec fromm Gensim
 
 
-# 4- Binary file for word2vec 
+# 4- Binary file for WORD2VEC 
 brew install wget
 wget -c "https://s3.amazonaws.com/dl4j-distribution/GoogleNews-vectors-negative300.bin.gz"
 gzip -d GoogleNews-vectors-negative300.bin.gz
@@ -26,10 +26,20 @@ from gensim import models
 w = models.KeyedVectors.load_word2vec_format('../GoogleNews-vectors-negative300.bin', binary=True)
 
 
-# 5- Glove word embedding 
+# 5- GLOVE *.txt word embedding files
 # https://nlp.stanford.edu/projects/glove/
 # 50d, 100d, 200d, 300d -> after unzipping the files -> glove6B-300d.txt
 # https://www.kaggle.com/watts2/glove6b50dtxt
+# in the file each line word [vector]
+path = 'glove.6B.50d.txt'
+embed_index = {}
+with open(path, encoding='utf8') as f:
+    lines = f.readline()
+    for line in lines:
+        values = line.split()
+        word = values[0]
+        coeffs = np.asarray(values[1:])
+        embed_index[word] = coeffs
 
 
 # 6- # textmining datasets   - It is used for text classifier bow_classifier.py
