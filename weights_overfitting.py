@@ -2,3 +2,9 @@
 
 
 # LSTM: return state and return sequence 
+
+
+
+# in keras
+model.train_on_batch(x, y)
+weights = model.get_weights()[0]
