@@ -36,10 +36,19 @@ from gensim import models
 w = models.KeyedVectors.load_word2vec_format('../GoogleNews-vectors-negative300.bin', binary=True)
 
 
-# 6- dataset for sentiment analysis 
+# 7- xxxx files for Glove word embedding model. 
+
+
+
+# 8- dataset for sentiment analysis 
 from keras.datasets import imdb
 
-# 7- https://gutenberg.org/: 
+# 9- Yelp dataset for sentiment analysis
+path = './DEEP_NLP_resources 2/data/yelp.csv'
+df = pd.read_csv(path)
+
+
+# 10- https://gutenberg.org/: 
 # dataset for word embedding like word2vec basic model - go to https://gutenberg.org/ebooks/8172 - download UTF-8 format 
 # ALSO, https://www.gutenberg.org/cache/epub/10773/pg10773.txt is used for text generations by letters
 
