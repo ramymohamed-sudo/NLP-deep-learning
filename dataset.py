@@ -18,17 +18,7 @@ gensim.models.word2vec.Text8Corpus(fname, max_sentence_length=10000) # Iterate o
 # see also LineSentence in word2vec fromm Gensim
 
 
-
-# 4- # textmining datasets   - It is used for text classifier bow_classifier.py
-""" https://github.com/Cynwell/Text-Level-GNN """
-# open the file.txt, then see raw data -> wget url
-
-
-# 5- glove word embedding 
-# https://nlp.stanford.edu/projects/glove/
-# https://www.kaggle.com/watts2/glove6b50dtxt
-
-# 6- Binary file for word2vec 
+# 4- Binary file for word2vec 
 brew install wget
 wget -c "https://s3.amazonaws.com/dl4j-distribution/GoogleNews-vectors-negative300.bin.gz"
 gzip -d GoogleNews-vectors-negative300.bin.gz
@@ -36,19 +26,25 @@ from gensim import models
 w = models.KeyedVectors.load_word2vec_format('../GoogleNews-vectors-negative300.bin', binary=True)
 
 
-# 7- xxxx files for Glove word embedding model. 
+# 5- Glove word embedding 
+# https://nlp.stanford.edu/projects/glove/
+# 50d, 100d, 200d, 300d -> after unzipping the files -> glove6B-300d.txt
+# https://www.kaggle.com/watts2/glove6b50dtxt
 
 
+# 6- # textmining datasets   - It is used for text classifier bow_classifier.py
+""" https://github.com/Cynwell/Text-Level-GNN """
+# open the file.txt, then see raw data -> wget url
 
-# 8- dataset for sentiment analysis 
+# 7- dataset for sentiment analysis 
 from keras.datasets import imdb
 
-# 9- Yelp dataset for sentiment analysis
+# 8- Yelp dataset for sentiment analysis
 path = './DEEP_NLP_resources 2/data/yelp.csv'
 df = pd.read_csv(path)
 
 
-# 10- https://gutenberg.org/: 
+# 9- https://gutenberg.org/: 
 # dataset for word embedding like word2vec basic model - go to https://gutenberg.org/ebooks/8172 - download UTF-8 format 
 # ALSO, https://www.gutenberg.org/cache/epub/10773/pg10773.txt is used for text generations by letters
 
