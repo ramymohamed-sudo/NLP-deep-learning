@@ -14,8 +14,8 @@ from sklearn.metrics.pairwise import cosine_similarity
     
   
   
-  
-  
+ 
+from scipy.spatial.distance import cdist
 def print_similar_words(word, metric='cosine'):
    token = word_index.get(word)
    embedding = wights_embedding[token]
