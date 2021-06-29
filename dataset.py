@@ -58,7 +58,9 @@ df = pd.read_csv(path)
 # dataset for word embedding like word2vec basic model - go to https://gutenberg.org/ebooks/8172 - download UTF-8 format 
 # ALSO, https://www.gutenberg.org/cache/epub/10773/pg10773.txt is used for text generations by letters
 
-  
+# gutenberg from nltk 
+nltk.download('gutenberg')
+print(gutenberg.fileids())    # I used 'bible-kjv.txt'  
 
 
 
