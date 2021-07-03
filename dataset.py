@@ -11,6 +11,9 @@ def get_sentences():
   # returns 57340 of the Brown corpus (around 57340 sentences) - much smaller than Wikipedia but OK for the course 
   # each sentence is represented as a list of individual string tokens
   return brown.sents()      # list of lists, each inner list is a sentence = list of words already tokenized 
+# it has categories (unlike gutenberg which has many files) 
+[['adventure', 'belles_lettres', 'editorial', 'fiction', 'government', 'hobbies', 'humor', 'learned', 'lore', 'mystery', 'news', 
+  'religion', 'reviews', 'romance', 'science_fiction']] - textual data under each category 
 
 
 # 3- Text8Corpus from Gensim
