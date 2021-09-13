@@ -1,4 +1,11 @@
 
+# cleaning punctuation - stop words - word/sent tokenize and lemmatize
+from string import punctuation
+from nltk.corpus import stopwords
+from nltk.tokenize import sent_tokenize, word_tokenize
+from nltk.stem import WordNetLemmatizer
+
+
 import pandas as pd
 import numpy as np 
 
@@ -15,7 +22,7 @@ import preprocess_kgptalkie as kgp
 tweet = kgp.get_basic_features(tweeter)
 
 def get_clean(x):
-  x = str(x).lower().replace('\\','').replace('_',' ').replace('.',' ')
+  x = str(x).lower().replace('\\','').replace('_',' ').replace('.',' ')         # "I like this movie ...".lower
   x = kgp.cont_exp(x)
   x = kgp.remove_emails(x)
   x = kgp.remove_urls(x)
@@ -40,7 +47,7 @@ def preprocessing(text):
     words = word_tokenize(text)
     tokens = [w for w in words if w.lower() not in remove_terms]
     # you can also try to apply the commented conditions below
-    # stopw = stopwords.word('english')
+    # stopw = stopwords.word('english')   # stopw like I, my, you, myslelf 
     # tokens = [token for token in tokens if token not in stopw]
     # remove words less than 3 words
     # tokens = [word for word in tokens if len(word) >=3]
@@ -52,3 +59,8 @@ def preprocessing(text):
     # here we already have tokens, we join??
     preprocessed_text = ' '.join(tokens)
     return preprocessed_text
+
+  
+# the use of split and join 
+splitted_line = line.split()	# (line.split()) default delimiter = whitespace   # then remove stop words, etc
+print(' '.join(splitted_line))
