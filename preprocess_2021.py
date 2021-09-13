@@ -6,6 +6,7 @@ nltk.download('wordnet')
 from nltk.corpus import stopwords
 from nltk.tokenize import sent_tokenize, word_tokenize
 from nltk.stem import WordNetLemmatizer, PorterStemmer, LancasterStemmer
+import unicodedata
 
 porter = PorterStemmer()
 lancaster = LancasterStemmer()
