@@ -1,10 +1,15 @@
 
 # cleaning punctuation - stop words - word/sent tokenize and lemmatize
 from string import punctuation
+import nltk
+nltk.download('wordnet')
 from nltk.corpus import stopwords
 from nltk.tokenize import sent_tokenize, word_tokenize
-from nltk.stem import WordNetLemmatizer
+from nltk.stem import WordNetLemmatizer, PorterStemmer, LancasterStemmer
 
+porter = PorterStemmer()
+lancaster = LancasterStemmer()
+stemmed = [porter.stem(word), lancaster.stem(word) for word in list_of_tokens]
 
 import pandas as pd
 import numpy as np 
@@ -55,7 +60,7 @@ def preprocessing(text):
     tokens = [word for word in tokens if word.isalpha()]
     # lemmatize
     lemma = WordNetLemmatizer()
-    tokens = [lemma.lemmatize(word) for word in tokens]
+    tokens = [lemma.lemmatize(word) for word in tokens]  #[lemma.lemmatize(word, wordnet.VERB) for word in tokens] to tell lemmatizer words are verbs to yield same source verb
     # here we already have tokens, we join??
     preprocessed_text = ' '.join(tokens)
     return preprocessed_text
@@ -64,3 +69,11 @@ def preprocessing(text):
 # the use of split and join 
 splitted_line = line.split()	# (line.split()) default delimiter = whitespace   # then remove stop words, etc
 print(' '.join(splitted_line))
+
+
+# Special model tokens:
+PAD: padding (512 tokens for BERT)
+UNK: unknown word 
+CLS: start of a sentence 
+SEP: sepearator at end of a sequence  (used in Q&A)
+MASK: masking tokens (MLM=masked language model - used during training)
