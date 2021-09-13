@@ -15,6 +15,15 @@ help(sentence.get_labels()[0].value)
 
 
 
+model_name = 'ProsusAI/finbert'
+from transformers import BertForSequenceClassification 
+from transformers import BertTokenizer
+model = BertForSequenceClassification.from_pretrained(model_name)
+tokenizer = BertTokenizer.from_pretrained(model_name)
+
+txt = ("Given the recent ....")
+tokens = tokenizer.encode_plus(txt, )
+
 
 
 
