@@ -78,3 +78,19 @@ UNK: unknown word
 CLS: start of a sentence 
 SEP: sepearator at end of a sequence  (used in Q&A)
 MASK: masking tokens (MLM=masked language model - used during training)
+ 
+# Unicode normalization - NFD (cannonical decompostion) and NFC (cannonical decompostion followed by cannonical compostion) 
+c_with_cedilla = '\u00C7'
+c_plus_cedilla = '\u0043\u0327'
+c_with_cedilla == c_plus_cedilla  # gives False
+unicodedata.normalize('NFD', c_with_cedilla) == c_plus_cedilla # gives True
+c_with_cedilla == unicodedata.normalize('NFC', c_plus_cedilla) # gives True
+unicodedata.normalize('NFC', c_with_cedilla) == unicodedata.normalize('NFC', c_plus_cedilla) # gives True
+# Normal form for Compatibility (K)
+unicodedata.normalize('NFKD',"H")
+fancy_h_with_cedilla = '\u210B\u0327'
+h_with_cedilla = '\u1e28'
+h_with_cedilla == fancy_h_with_cedilla  # gives False
+unicodedata.normalize('NFKC',fancy_h_with_cedilla) == h_with_cedilla # gives True
+https://ibm-learning.udemy.com/course/nlp-with-transformers/learn/lecture/25699794#overview
+  
