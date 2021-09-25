@@ -185,8 +185,14 @@ doc9.noun_chunks		e.g., Autonomous cars	(nouns)
 from spacy import displacy
 doc = nlp(u'Apple is going to build a U.K. factory for $6 million.')
 displacy.render(doc, style='dep', jupyter=True, options={'distance': 110}) 110 is the distance between tokens 
-displacy.render(doc, style='ent', jupyter=True)
+displacy.render(doc, style='ent', jupyter=True) # NER 
+for entity in doc.ents:
+  if entity.label_ == 'GPE':
+    print(entity.text, entity.label_)
+
 displacy.serve(doc, style=dep)
+
+
 
 from spacy.tokens import span
 for sent in doc.sents:		here doc.sents: is a generator, i.e., there is no doc.sents[0] in the memory. Instead, list(doc.sents)[0] (and the type is a span not actually a list).
