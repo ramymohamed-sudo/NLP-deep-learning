@@ -175,7 +175,7 @@ print(type(doc), len(doc))  # spacy.tokens.doc.Doc
 print(doc)  # cat \ndog\ \n10 \km \nsupport@udemy.com    == similar to tokenized words 
 
 --------------------
-# Lemmatization with Spacy
+# Lemmatization with Spacy (VIP: Stemming is not implemented in Spacy)
 doc = nlp(u'Tesla is looking at buying U.S. startup for $6 million')    # u for unicode
 for token in doc:
   print(token.text, '\t',token.lemma_,token.tag_,token.dep_,token.shape_,token.is_alpha,token.is_stop) # Token.dep_ for dependencies, e.g., 'nsubj' for nominal subject
@@ -256,7 +256,6 @@ for key, val in doc.count_by(spacy.attrs.POS).items():
 from spacy import displacy
 displacy.render(doc=doc, style='dep', juypter=True, options={'distance': 100})
       
-
 --------------------
 # Named Entity Recognition NER with spacy 
 s1 = "Apple is looking at buying U.K. Startup for $1 billion"
@@ -279,16 +278,36 @@ from spacy import displacy
 displacy.render(docs=doc1, style='ent', juypter=True)
 displacy.render(docs=doc1, style='ent', juypter=True, options={'ents': ['ORG']})    # to display organizations only
 
-
-      
-
-
 --------------------
 # Sentence Segmentation with spacy 
 from spacy.pipeline import SentenceSegmenter 
+s1 = "This is a sentence. This is second sentence. This is last sentence."
+s2 = "This is a sentence; This is second sentence; This is last sentence."
+nlp = spacy.load('en_core_web_sm')
+doc1 = nlp(s1)
+# doc1.sents  # is a generator
+for sent in doc1.sents:
+      print(sent.text)
+s3 = "This is a sentence. This is second U.K. sentence. This is last sentence."      
+doc3 = nlp(s3)
+for sent in doc3.sents:
+      print(sent.text)  # spacy understands that U.K. is a word not end of a sentence
 
+doc2 = nlp(s2)
+for sent in doc2 .sents:      
+      print(sent.text)        # as sentences are separated by ";", spacy returns all as one sentence
 
-
+def set_custom_boundaries(doc):
+      for token in doc[:-1]:
+            if token.text == ';':
+                  print(token.i)
+                  doc[toekn.i+1].is_sent_start = True       # + 1 for the token after the ';'
+      return doc
+print(nlp.pipe_names)      #  ['tagger', 'parser', 'ner']
+nlp.add_pipe(set_custom_boundaries, before='parser')
+doc_2 = nlp(s2)
+for sent in doc_2 .sents:      
+      print(sent.text)
 
 --------------------
 # Pipeline with spacy 
