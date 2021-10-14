@@ -184,6 +184,9 @@ for token in doc:
 
 --------------------
 # stopwords with Spacy
+from spacy.lang.en.stop_words import STOP_WORDS as stopwords
+len(stopwords) 		# 26 
+
 nlp = spacy.load('en_core_web_sm')
 print(nlp.Defaults.stop_words)
 print(len(nlp.Defaults.stop_words))       # 326
@@ -238,38 +241,33 @@ for match_id, start, end in find_matches:
       string_id = nlp.vocab.strings[match_id]  # get string representation
       span = doc3[start:end]
       print(string_id, start, end, span.text)
-
-
-Phrase Matching with Spacy:
->> from spacy.matcher import Matcher, PhraseMatcher
->> from spacy.tokens import span 
->> from spacy.lang.en.stop_words import STOP_WORDS as stopwords
-
->> len(stopwords) 		# 26 
-
-pattern = [{'LOWER':'hello'},{'IS_PUNCT':True},{'LOWER':'world'}]
-matcher = Matcher(nlp.vocab)
-matcher.add('hw', None, pattern)
-matches = matcher(doc)
-          
       
+--------------------
+# Part of Speech Tagging PoS Tagging with spacy 
+import spacy 
+nlp = spacy.load('en_core_web_sm')
+s1 = "Apple is looking at buying U.K. Startup for $1 billion"
+doc = nlp(s1)
+for token in doc:
+      print(token.text, token.pos_, token.tag_, spacy.explain(token.tag_))
+      # token.pos_ gives POS tag and token.tag_ gives fine-grained tag
+for key, val in doc.count_by(spacy.attrs.POS).items():
+      print(key, doc.vocab[key].text  val)
+from spacy import displacy
+displacy.render(doc=doc, style='dep', juypter=True, options={'distance': 100})
       
-token.pos_ gives POS tag and token.tag_ gives fine-grained tag
+
+--------------------
+# Named Entity Recognition NER with spacy 
+s1 = "Apple is looking at buying U.K. Startup for $1 billion"
+s2 = "San Francisco considers banning sidewalk delivery robots"
+s3 = "facebook is hiring a new vice president in U.S."
+
+
+
+--------------------
+# Sentence Segmentation with spacy 
 from spacy.pipeline import SentenceSegmenter 
-Phrase Matching with Spacy:
->> from spacy.matcher import Matcher, PhraseMatcher
->> from spacy.tokens import span 
->> from spacy.lang.en.stop_words import STOP_WORDS as stopwords
-
->> len(stopwords) 		# 26 
-
-pattern = [{'LOWER':'hello'},{'IS_PUNCT':True},{'LOWER':'world'}]
-matcher = Matcher(nlp.vocab)
-matcher.add('hw', None, pattern)
-matches = matcher(doc)
-
-
-
 
 
 --------------------
