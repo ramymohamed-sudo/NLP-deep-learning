@@ -243,7 +243,7 @@ for match_id, start, end in find_matches:
       print(string_id, start, end, span.text)
       
 --------------------
-# Part of Speech Tagging PoS Tagging with spacy 
+# Part of Speech Tagging PoS with spacy 
 import spacy 
 nlp = spacy.load('en_core_web_sm')
 s1 = "Apple is looking at buying U.K. Startup for $1 billion"
@@ -262,12 +262,32 @@ displacy.render(doc=doc, style='dep', juypter=True, options={'distance': 100})
 s1 = "Apple is looking at buying U.K. Startup for $1 billion"
 s2 = "San Francisco considers banning sidewalk delivery robots"
 s3 = "facebook is hiring a new vice president in U.S."
+nlp = spacy.load('en_core_web_sm')
+doc1 = nlp(s1)
+for ent in doc1.ents:
+      print(ent.text, ent.label_, spacy.explain(ent.label_))   # Apple is ORG
+doc3 = nlp(s3)
+for ent in doc3.ents:
+      print(ent.text, ent.label_, spacy.explain(ent.label_))   # facebook is not identified as ORG - doc3.ents = (U.S.,)
+# define new objects
+from spacy.tokens import Span
+ORG = doc3.vocab.strings['ORG']
+new_ent = Span(doc3, 0, 1, label=ORG)     # 0, 1 means first token which is for "facebook"
+doc3.ents = list(doc3.ents) + [new_ent]
+print(doc3.ents)  # (facebook, U.S.)
+from spacy import displacy
+displacy.render(docs=doc1, style='ent', juypter=True)
+displacy.render(docs=doc1, style='ent', juypter=True, options={'ents': ['ORG']})    # to display organizations only
 
+
+      
 
 
 --------------------
 # Sentence Segmentation with spacy 
 from spacy.pipeline import SentenceSegmenter 
+
+
 
 
 --------------------
