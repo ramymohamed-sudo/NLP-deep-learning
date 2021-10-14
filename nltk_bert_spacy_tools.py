@@ -150,7 +150,9 @@ from textblob import TextBlob	# used for spelling corrections
 import spacy 
 nlp = spacy.load('en_core_web_lg')        # nlp = spacy.load('en',disable=['parser', 'tagger','ner'])
 nlp.max_length = 1198623
-# doc = nlp('x')    # x = 'cat dog'
+doc = nlp('x')    # x = 'cat dog 10km support@udemy.com'
+print(type(doc), len(doc))  # spacy.tokens.doc.Doc
+print(doc)  # cat \ndog\ \n10 \km \nsupport@udemy.com    == similar to tokenized words 
 # vec = doc.vector        # now, we need to get this vector in the form of numpy array 
 tweet['vec'] = tweet['text'].apply(lambda x: nlp('x').vector)     # This is word2vec word embedding from Spacy 
 X = tweet['vec'].to_numpy()
