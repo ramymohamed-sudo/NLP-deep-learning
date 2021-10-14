@@ -165,7 +165,7 @@ for token in doc:
 
 # Tokenization with Spacy
 [token.text.lower() for token in nlp(doc_text) if token.text not in '\n\n \n\n\n!"-#$%&()--.*+,-/:;<=>?@[\\]^_`{|}~\t\n ']
-Example:
+Another Example:
 import spacy 
 nlp = spacy.load('en_core_web_lg')        # nlp = spacy.load('en',disable=['parser', 'tagger','ner'])
 nlp.max_length = 1198623
@@ -174,6 +174,22 @@ print(type(doc), len(doc))  # spacy.tokens.doc.Doc
 print(doc)  # cat \ndog\ \n10 \km \nsupport@udemy.com    == similar to tokenized words 
 
 # Lemmatization with Spacy
+doc = nlp(u'Tesla is looking at buying U.S. startup for $6 million')    # u for unicode
+for token in doc:
+  print(token.text, '\t',token.lemma_,token.tag_,token.dep_,token.shape_,token.is_alpha,token.is_stop) # Token.dep_ for dependencies, e.g., 'nsubj' for nominal subject
+  spacy.explain('PROPN')
+  spacy.explain('nsubj')
+
+# stopwords with Spacy
+nlp = spacy.load('en_core_web_sm')
+print(nlp.Defaults.stop_words)
+print(len(nlp.Defaults.stop_words))       # 326
+nlp.vocab['always'].is_stop   # returns true
+nlp.Defaults.stop_words.add('asdf') # add 'asdf' from stopwords 
+nlp.vocab['no'].is_stop = False     # remove 'no' from stopwords if set to True 
+# or
+nlp.Defaults.stop_words.remove('no')
+
 
 nlp.pipeline
 nlp.pipe_names		# ['tagger', 'parser', 'ner']
