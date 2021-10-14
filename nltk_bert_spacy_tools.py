@@ -100,9 +100,9 @@ lemmatizer = WordNetLemmatizer()
 lemmatizer.lemmatize('going', wordnet.VERB)
 
 # 
-S_stemmer = SnowballStemmer(language=”english”)
+S_stemmer = SnowballStemmer(language=”english”)       # better than PorterStemmer()
 stemmer = PorterStemmer()
-tokens = [stemmer.stem(t) for t in tokens]	where tokens = words 
+tokens = [stemmer.stem(t) for t in tokens]	where tokens = tokenized words                  Example: easilh -> easili 
 
 # Tokenizers 
 from nltk.tokenize import word_tokenize
@@ -144,15 +144,11 @@ from textblob import TextBlob	# used for spelling corrections
 >> x = TextBlob(x).correct() 
 
 
+
 """ ...................................................... 3- Spacy ............................................................ """
 # SpaCy offers the fastest syntactic parser available on the market today. Moreover, since the toolkit is written in Cython, it’s also really speedy and efficient
 ! python3 -m spacy download en_core_web_lg    #python3 -m spacy download en_core_web_sm
-import spacy 
-nlp = spacy.load('en_core_web_lg')        # nlp = spacy.load('en',disable=['parser', 'tagger','ner'])
-nlp.max_length = 1198623
-doc = nlp('x')    # x = 'cat dog 10km support@udemy.com'
-print(type(doc), len(doc))  # spacy.tokens.doc.Doc
-print(doc)  # cat \ndog\ \n10 \km \nsupport@udemy.com    == similar to tokenized words 
+doc = nlp('sentence(s)')
 # vec = doc.vector        # now, we need to get this vector in the form of numpy array 
 tweet['vec'] = tweet['text'].apply(lambda x: nlp('x').vector)     # This is word2vec word embedding from Spacy 
 X = tweet['vec'].to_numpy()
@@ -166,9 +162,18 @@ for token in doc:
   spacy.explain('PROPN')
   spacy.explain('nsubj')
 
+
 # Tokenization with Spacy
 [token.text.lower() for token in nlp(doc_text) if token.text not in '\n\n \n\n\n!"-#$%&()--.*+,-/:;<=>?@[\\]^_`{|}~\t\n ']
+Example:
+import spacy 
+nlp = spacy.load('en_core_web_lg')        # nlp = spacy.load('en',disable=['parser', 'tagger','ner'])
+nlp.max_length = 1198623
+doc = nlp('x')    # x = 'cat dog 10km support@udemy.com'
+print(type(doc), len(doc))  # spacy.tokens.doc.Doc
+print(doc)  # cat \ndog\ \n10 \km \nsupport@udemy.com    == similar to tokenized words 
 
+# Lemmatization with Spacy
 
 nlp.pipeline
 nlp.pipe_names		# ['tagger', 'parser', 'ner']
