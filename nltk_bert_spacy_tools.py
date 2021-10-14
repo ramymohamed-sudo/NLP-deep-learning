@@ -163,6 +163,7 @@ for token in doc:
   spacy.explain('nsubj')
 
 
+--------------------
 # Tokenization with Spacy
 [token.text.lower() for token in nlp(doc_text) if token.text not in '\n\n \n\n\n!"-#$%&()--.*+,-/:;<=>?@[\\]^_`{|}~\t\n ']
 Another Example:
@@ -173,6 +174,7 @@ doc = nlp('x')    # x = 'cat dog 10km support@udemy.com'
 print(type(doc), len(doc))  # spacy.tokens.doc.Doc
 print(doc)  # cat \ndog\ \n10 \km \nsupport@udemy.com    == similar to tokenized words 
 
+--------------------
 # Lemmatization with Spacy
 doc = nlp(u'Tesla is looking at buying U.S. startup for $6 million')    # u for unicode
 for token in doc:
@@ -180,6 +182,7 @@ for token in doc:
   spacy.explain('PROPN')
   spacy.explain('nsubj')
 
+--------------------
 # stopwords with Spacy
 nlp = spacy.load('en_core_web_sm')
 print(nlp.Defaults.stop_words)
@@ -190,7 +193,87 @@ nlp.vocab['no'].is_stop = False     # remove 'no' from stopwords if set to True
 # or
 nlp.Defaults.stop_words.remove('no')
 
+--------------------
+# vocabulary and phrase matching with spacy 
+# 1- Rule based matcher explorer (under it - token based - rule based - phrase based )
+https://spacy.io/usage/rule-based-matching/
+https://explosion.ai/demos/matcher
+# how to create this mathcer in python
+import spacy 
+nlp = spacy.load('en_core_web_sm')
+from spacy.matcher import Matcher
+matcher = Matcher(nlp.vocab)
+# create patterns
+pattern_1 = [{"LOWER": 'hello'}, {"LOWER": 'world'}]
+pattern_2 = [{"LOWER": 'hello'}, {"IS_PUNCT": 'True'}, {"LOWER": 'world'}]
+matcher.add("Hello World", None, pattern_1, pattern_2)
+doc = nlp("'Hello World' are the first two printed words for most of the programmers")
+find_matches = matcher(doc)
+print(find_matches)           # returns the index of start/end of each match
 
+from spacy.matcher import Matcher, PhraseMatcher
+matcher = Matcher(nlp.vocab)
+pattern1 = [{'LOWER': 'solarpower'}]            # pattern1 looks for a single token whose lowercase text reads 'solarpower'
+pattern2 = [{'LOWER': 'solar'}, {'LOWER': 'power'}]   # pattern2 looks for two adjacent tokens that read 'solar' and 'power' in that order
+pattern3 = [{'LOWER': 'solar'}, {'IS_PUNCT': True}, {'LOWER': 'power'}] # pattern3 looks for three adjacent tokens, with a middle token that can be any punctuation.*
+matcher.add('SolarPower', None, pattern1, pattern2, pattern3)	# matcher.remove('SolarPower')
+find_matches = matcher(doc)
+for match_id, start, end in find_matches:
+      string_id = nlp.vocab.strings[match_id]  # get string representation
+      span = doc[start:end]
+      print(string_id, start, end, span.text)
+To make the punctuation in the middle as optional, use ‘OP’:’*’ (I mean it does not matter wether punctuation exists or not)
+pattern4 = [{'LOWER': 'solar'}, {'IS_PUNCT': True, 'OP':'*'}, {'LOWER': 'power'}]   # solar-power will be matched  
+pattern2 = [{'LOWER': 'solar'}, {'IS_PUNCT': True, 'OP':'*'}, {'LEMMA': 'power'}]
+
+matcher = PhraseMatcher(nlp.vocab) 
+phrase_list = ["Barak Obama", "Angela Markel", "Washinton", "D.C."]
+phrase_patterns =  [nlp(text) for text in phrase_list]
+matcher.add('Terminologyst', None, *phrase_patterns)
+doc3 = nlp("German Chancellor Angela Markel and US president Barak Obama"
+            "converse in the oval office inside the white house in Washinton D.C.")
+find_matches = matcher(doc3)
+print(find_matches)
+for match_id, start, end in find_matches:
+      string_id = nlp.vocab.strings[match_id]  # get string representation
+      span = doc3[start:end]
+      print(string_id, start, end, span.text)
+
+
+Phrase Matching with Spacy:
+>> from spacy.matcher import Matcher, PhraseMatcher
+>> from spacy.tokens import span 
+>> from spacy.lang.en.stop_words import STOP_WORDS as stopwords
+
+>> len(stopwords) 		# 26 
+
+pattern = [{'LOWER':'hello'},{'IS_PUNCT':True},{'LOWER':'world'}]
+matcher = Matcher(nlp.vocab)
+matcher.add('hw', None, pattern)
+matches = matcher(doc)
+          
+      
+      
+token.pos_ gives POS tag and token.tag_ gives fine-grained tag
+from spacy.pipeline import SentenceSegmenter 
+Phrase Matching with Spacy:
+>> from spacy.matcher import Matcher, PhraseMatcher
+>> from spacy.tokens import span 
+>> from spacy.lang.en.stop_words import STOP_WORDS as stopwords
+
+>> len(stopwords) 		# 26 
+
+pattern = [{'LOWER':'hello'},{'IS_PUNCT':True},{'LOWER':'world'}]
+matcher = Matcher(nlp.vocab)
+matcher.add('hw', None, pattern)
+matches = matcher(doc)
+
+
+
+
+
+--------------------
+# Pipeline with spacy 
 nlp.pipeline
 nlp.pipe_names		# ['tagger', 'parser', 'ner']
 for sentence in doc4.sents:
@@ -205,6 +288,8 @@ for ent in doc8.ents:		doc8.ents for name entities
 doc9=nlp(‘sentence’)
 doc9.noun_chunks		e.g., Autonomous cars	(nouns)
 
+--------------------
+# Displacy with spacy 
 from spacy import displacy
 doc = nlp(u'Apple is going to build a U.K. factory for $6 million.')
 displacy.render(doc, style='dep', jupyter=True, options={'distance': 110}) 110 is the distance between tokens 
@@ -212,7 +297,6 @@ displacy.render(doc, style='ent', jupyter=True) # NER
 for entity in doc.ents:
   if entity.label_ == 'GPE':
     print(entity.text, entity.label_)
-
 displacy.serve(doc, style=dep)
 
 
@@ -221,18 +305,7 @@ from spacy.tokens import span
 for sent in doc.sents:		here doc.sents: is a generator, i.e., there is no doc.sents[0] in the memory. Instead, list(doc.sents)[0] (and the type is a span not actually a list).
 
     
-Phrase Matching with Spacy:
->> from spacy.matcher import Matcher, PhraseMatcher
->> from spacy.tokens import span 
->> from spacy.lang.en.stop_words import STOP_WORDS as stopwords
 
->> len(stopwords) 		# 26 
-
-pattern = [{'LOWER':'hello'},{'IS_PUNCT':True},{'LOWER':'world'}]
-matcher = Matcher(nlp.vocab)
-matcher.add('hw', None, pattern)
-matches = matcher(doc)
-    
 
       
 Spacy features:
