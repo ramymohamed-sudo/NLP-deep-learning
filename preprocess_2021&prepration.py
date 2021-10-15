@@ -93,4 +93,26 @@ h_with_cedilla = '\u1e28'
 h_with_cedilla == fancy_h_with_cedilla  # gives False
 unicodedata.normalize('NFKC',fancy_h_with_cedilla) == h_with_cedilla # gives True
 https://ibm-learning.udemy.com/course/nlp-with-transformers/learn/lecture/25699794#overview
+
+  
+  
+""" Data prepration before ML Model """
+# For pandas df:
+# 1- check Null by 
+df.isna().sum()
+#2- checl if data is balanced by
+print(df['label'].value_counts())   # 4825 ham vs 417 spam
+ham = df[df['label'] == 'ham']
+spam = df[df['label'] == 'spam']
+ham = ham.sample(spam.shape[0])
+
+# Visualize the data - e.g., histogram
+plt.hist(data[data['label']=='ham']['length'], bins=100, alpha=0.7, label="Ham")
+plt.hist(data[data['label']=='spam']['length'], bins=100, alpha=0.7, label="Spam")
+plt.show()
+
+# Split the data to train and test - especially when using classical ML models like Random Forest, etc.
+
+  
+  
   
