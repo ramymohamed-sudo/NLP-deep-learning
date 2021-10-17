@@ -69,5 +69,9 @@ print(gutenberg.fileids())    # I used 'bible-kjv.txt'
 http://help.sentiment140.com/for-students/
   stanford link
 
+12- dataset used for wordembedding with gensim - from Kaggle
+https://www.kaggle.com/rootuser/worldnews-on-reddit
+the data is .csv file
+df = pd.read_csv('') # title column for the embedding model
 
 
