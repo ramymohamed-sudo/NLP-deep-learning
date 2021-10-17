@@ -74,4 +74,7 @@ https://www.kaggle.com/rootuser/worldnews-on-reddit
 the data is .csv file
 df = pd.read_csv('') # title column for the embedding model
 
+13- googles-trained-word2vec-model from Kaggle
+https://www.kaggle.com/umbertogriffo/googles-trained-word2vec-model-in-python
+# .bin file(s)
 
