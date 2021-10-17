@@ -29,7 +29,7 @@ for word in better_w2v_model.wv.vocab:
 import gensim
 from gensim.models import KeyedVectors
 word_vectors = KeyedVectors.load_word2vec_format('path/file.bin', binary=True)    # # 3 millions words and phrases 
-
+# Please see also pre-trained word2vec modle from Google https://www.kaggle.com/umbertogriffo/googles-trained-word2vec-model-in-python
     
 # gensim in general
 # gensim lemmatizer 
