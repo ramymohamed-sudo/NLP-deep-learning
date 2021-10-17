@@ -92,7 +92,7 @@ lda = LdaModel(common_corpus, num_topics=10)
 # _________________________________________________________________________________________________________#
       
 # Lemmatizer and Stemmer  
-from nltk.stem import WordNetLemmatizer,PorterStemmer
+from nltk.stem import WordNetLemmatizer,PorterStemmer       # LancasterStemmer
 from nltk.stem.porter import PorterStemmer
 from nltk.stem.snowball import SnowballStemmer
 
@@ -148,6 +148,8 @@ from textblob import TextBlob	# used for spelling corrections
 """ ...................................................... 3- Spacy ............................................................ """
 # SpaCy offers the fastest syntactic parser available on the market today. Moreover, since the toolkit is written in Cython, it’s also really speedy and efficient
 ! python3 -m spacy download en_core_web_lg    #python3 -m spacy download en_core_web_sm
+import spacy
+nlp = spacy.load('en_core_web_md')
 doc = nlp('sentence(s)')
 # vec = doc.vector        # now, we need to get this vector in the form of numpy array 
 tweet['vec'] = tweet['text'].apply(lambda x: nlp('x').vector)     # This is word2vec word embedding from Spacy 
@@ -173,6 +175,17 @@ nlp.max_length = 1198623
 doc = nlp('x')    # x = 'cat dog 10km support@udemy.com'
 print(type(doc), len(doc))  # spacy.tokens.doc.Doc
 print(doc)  # cat \ndog\ \n10 \km \nsupport@udemy.com    == similar to tokenized words 
+
+--------------------
+# Sentence Segmentation with Spacy
+import spacy 
+nlp = spacy.load("en_core_web_md") 
+text = "I flied to N.Y yesterday. It was around 5 pm." 
+doc = nlp(text) for sent in doc.sents:
+      print(sent.text)
+
+
+
 
 --------------------
 # Lemmatization with Spacy (VIP: Stemming is not implemented in Spacy)
