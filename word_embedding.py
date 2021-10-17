@@ -15,6 +15,7 @@
 
 from gensim.models import Word2Vec
 w2v_model = Word2Vec(brown.sents(), size=128, window=5, min_count=3, workers=4)     # word2vec = Word2Vec(all_words, min_count=2)
+# brown.sents() is the input == [[tokenized_words via nltk.word_tokenize], [tokenized_words via nltk.word_tokenize], ...]
 ger_vec = w2v_model.wv['Germany']
 w2v_model.wv.most_similar('Vienna')
 w2v_model.wv.most_similar(positive=['woman',  'king'], negative=['man'],topn=5)
