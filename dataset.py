@@ -78,3 +78,5 @@ df = pd.read_csv('') # title column for the embedding model
 https://www.kaggle.com/umbertogriffo/googles-trained-word2vec-model-in-python
 # .bin file(s)
 
+14- Airline Travel Information System (ATIS), ATIS is a well-known dataset for intent classification.
+wget https://github.com/PacktPublishing/Mastering-spaCy/blob/main/Chapter06/data/atis_intents.csv
