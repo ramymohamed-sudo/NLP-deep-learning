@@ -5,12 +5,18 @@ tweeter = pd.read_csv(url). # of size 7613 rows
 tweet = kgp.get_basic_features(tweeter)
 
 
-""" ........... 1- NLTK ........... """
+
+""" ....................................................... 1- NLTK  ....................................................... """ 
+
 ! pip install -U nltk		# (nltk = python modules + datasets)
 
 # To download a particular dataset/models, use the nltk.download() function, e.g. if you are looking to download the punkt sentence tokenizer, use:
 import nltk
 nltk.download('punkt')  # Sometimes this is needed to use nltk.corpus.NAME(e.g. gutenberg).sents(‘book_name.txt’)
+
+nltk.download()
+from nltk.book import *
+
 
 # If you're unsure of which data/model you need, you can start out with the basic list of data + models with:
 nltk.download('popular')    # It will download a list of "popular" resources, these includes:
@@ -59,38 +65,6 @@ nltk.download('brown')
 from nltk.corpus import brown
 print(brown.sents())
 
-# _________________________________________________________________________________________________________#
-
-""" Gensim:                               https://radimrehurek.com/gensim/models/ldamodel.html
-Gensim is a Python library that specializes in identifying semantic similarity between two documents through vector space modeling and topic modeling toolkit.
-"""
-# Ex) doc to bag of words bow 
-from gensim.corpora import Dictionary     # Dictionary encapsulates the mapping between normalized words and their integer ids.
-dct = Dictionary(["máma mele maso".split(), "ema má máma".split()])           # Dictionary(corpus)
-dct.doc2bow(["this", "is", "máma"])      # dct.docebow(document (list of str) – Input document.)
-# Convert document into the bag-of-words (BoW) format = list of (token_id, token_count) tuples.
-dct.doc2bow(["this", "is", "máma"], return_missing=True)
-
-
-# Ex) Train an Latent Dirichlet Allocation (LDA) model using a Gensim corpus
-from gensim.test.utils import common_texts
-from gensim.corpora.dictionary import Dictionary
-# Create a corpus from a list of texts
-common_dictionary = Dictionary(common_texts)
-common_corpus = [common_dictionary.doc2bow(text) for text in common_texts]
-# Train the model on the corpus.
-lda = LdaModel(common_corpus, num_topics=10)
-
-
-# Ex) Word2Vec from gensim
-# see word_embedding.py
-
-
-
-# gensim lemmatizer ??
-# wordnet lemmatizer 
-# _________________________________________________________________________________________________________#
-      
 # Lemmatizer and Stemmer  
 from nltk.stem import WordNetLemmatizer,PorterStemmer       # LancasterStemmer
 from nltk.stem.porter import PorterStemmer
@@ -132,11 +106,40 @@ from nltk.stem.wordnet import WordNetLemmatizer
 pass 
 
 
+""" ....................................................... 2- Gensim ....................................................... """ 
+
+""" Gensim:                               https://radimrehurek.com/gensim/models/ldamodel.html
+Gensim is a Python library that specializes in identifying semantic similarity between two documents through vector space modeling and topic modeling toolkit.
+"""
+# Ex) doc to bag of words bow 
+from gensim.corpora import Dictionary     # Dictionary encapsulates the mapping between normalized words and their integer ids.
+dct = Dictionary(["máma mele maso".split(), "ema má máma".split()])           # Dictionary(corpus)
+dct.doc2bow(["this", "is", "máma"])      # dct.docebow(document (list of str) – Input document.)
+# Convert document into the bag-of-words (BoW) format = list of (token_id, token_count) tuples.
+dct.doc2bow(["this", "is", "máma"], return_missing=True)
+
+
+# Ex) Train an Latent Dirichlet Allocation (LDA) model using a Gensim corpus
+from gensim.test.utils import common_texts
+from gensim.corpora.dictionary import Dictionary
+# Create a corpus from a list of texts
+common_dictionary = Dictionary(common_texts)
+common_corpus = [common_dictionary.doc2bow(text) for text in common_texts]
+# Train the model on the corpus.
+lda = LdaModel(common_corpus, num_topics=10)
+
+
+# Ex) Word2Vec from gensim
+# see word_embedding.py
 
 
 
+# gensim lemmatizer ??
+# wordnet lemmatizer       
 
-""" ....................................................... 2- TextBlob ....................................................... """ 
+
+
+""" ....................................................... 3- TextBlob ....................................................... """ 
 # # used for spelling corrections 
 from textblob import TextBlob	# used for spelling corrections 
 
@@ -145,7 +148,7 @@ from textblob import TextBlob	# used for spelling corrections
 
 
 
-""" ...................................................... 3- Spacy ............................................................ """
+""" ...................................................... 4- Spacy ............................................................ """
 # SpaCy offers the fastest syntactic parser available on the market today. Moreover, since the toolkit is written in Cython, it’s also really speedy and efficient
 ! python3 -m spacy download en_core_web_lg    #python3 -m spacy download en_core_web_sm
 import spacy
