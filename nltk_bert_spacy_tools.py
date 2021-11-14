@@ -49,9 +49,27 @@ stopwords.words('english')[0:500:25]
 # Part of Speech tagging 
 from nltk import pos_tag
 def _get_pos(text):
-        pos=nltk.pos_tag(word_tokenize(text))
+        pos=nltk.pos_tag(word_tokenize(text))         # [(word1, tag1), (), ..]
         pos=list(map(list,zip(*pos)))[1]
         return pos
+nltk.help.upenn_tagset('MD')
+
+# Grammar parsing
+# Alice loves book: Sent S = NP (noun phrase Alice) + (verp phrase loves book)
+# VP = V (loves) + NP (book)
+# hint PP: proposition phrase: Ex) I (NP) saw a man (VP of the VP) with the telescope (PP of the VP)         # it can be also treated as I (NP) saw (V of VP) the man with a telescope (NP of the VP)
+text15 = nltk.word_tokenize("Alice loves Bob")
+grammar = nltk.CFG.fromstring(""" """)    # CFG = context free grammar        # here we get the grammar
+parser = nltk.ChartParser(grammar)        # use the grammar to parse the sentence
+trees = parser.parse_all(text15)
+for tree in trees:
+      print(tree)
+Ex) # write you grammar file mygrammar1.cfg
+grammar1 = nltk.data.load(' mygrammar1.cfg')          # https://www.coursera.org/learn/python-text-mining/lecture/wWEVW/advanced-nlp-tasks-with-nltk
+# NLTK has a big collection of parse trees from wall street journal
+from nltk.corpus import treebank
+text17 = treebank.parsed_sents('wsj_0001.mrg')[0]           # for tje 1st sentene from wsj
+print(text17)
       
 # Name Entity Recognition NER via NLTK:
 nltk.download('words')
@@ -65,22 +83,25 @@ nltk.download('brown')
 from nltk.corpus import brown
 print(brown.sents())
 
-# Lemmatizer and Stemmer  
+#  Stemmer and Lemmatizer
 from nltk.stem import WordNetLemmatizer,PorterStemmer       # LancasterStemmer
 from nltk.stem.porter import PorterStemmer
 from nltk.stem.snowball import SnowballStemmer
 
-lemmatizer = WordNetLemmatizer()
-lemmatizer.lemmatize('going', wordnet.VERB)
-
-# 
+# Stemmer
 S_stemmer = SnowballStemmer(language=”english”)       # better than PorterStemmer()
 stemmer = PorterStemmer()
 tokens = [stemmer.stem(t) for t in tokens]	where tokens = tokenized words                  Example: easilh -> easili 
 
+# Lemmatizer
+lemmatizer = WordNetLemmatizer()
+lemmatizer.lemmatize('going', wordnet.VERB)
+
 # Tokenizers 
-from nltk.tokenize import word_tokenize
-from nltk.tokenize import sent_tokenize
+from nltk.tokenize import word_tokenize   # take care of shouldn't as should and n't are 2 words, . at the end of a sent.
+from nltk.tokenize import sent_tokenize   # take care of U.S. inside a sent.
+word_tokenize
+
 
 # Sentiment Analysis with NLTK
 from nltk.classify import NaiveBayesClassifier
@@ -93,7 +114,14 @@ ss = sid.polarity_scores(text)
 ss.pop('compound')
 key = ss.get
 
+# Corpus
+# udhr = universal declartion of human rights
+udhr = nltk.corpus.udhr.words('English-Latin1')
+udhr[:20]
 
+
+
+# Wordnet
 # Wordnet is an large, freely and publicly available lexical database for the English language aiming to establish structured semantic relationships between words
 # It offers lemmatization capabilities as well and is one of the earliest and most commonly used lemmatizers
 import nltk
@@ -104,7 +132,6 @@ nltk.download(“punkt”)	# download pre-trained punkt tokenizer for English
 ## 2. Wordnet Lemmatizer and 3. Wordnet Lemmatizer with appropriate POS tag
 from nltk.stem.wordnet import WordNetLemmatizer
 pass 
-
 
 """ ....................................................... 2- Gensim ....................................................... """ 
 
