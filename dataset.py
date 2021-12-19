@@ -81,7 +81,7 @@ https://www.kaggle.com/umbertogriffo/googles-trained-word2vec-model-in-python
 14- Airline Travel Information System (ATIS), ATIS is a well-known dataset for intent classification.
 wget https://github.com/PacktPublishing/Mastering-spaCy/blob/main/Chapter06/data/atis_intents.csv
   
-15- Toxic_data from Kaggle for binary classification
+15- Toxic_data from Kaggle for binary classification - multi-label data - insult/thread/obscence/identity_hate/severe_toxic
 # Download the data:
 # https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge
 # Download the word vectors:
