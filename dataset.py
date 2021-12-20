@@ -82,6 +82,9 @@ https://www.kaggle.com/umbertogriffo/googles-trained-word2vec-model-in-python
 wget https://github.com/PacktPublishing/Mastering-spaCy/blob/main/Chapter06/data/atis_intents.csv
   
 15- Toxic_data from Kaggle for binary classification - multi-label data - insult/thread/obscence/identity_hate/severe_toxic
+# treated as 6 binary classifcation problems
+# 1 NN with 6 separate binary logisitc regression and sigmoid fn at the ouput layer - 
+# the total loss fn = avg binary cross entropy across all output nodes https://ibm-learning.udemy.com/course/deep-learning-advanced-nlp/learn/lecture/10232918#overview
 # Download the data:
 # https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge
 # Download the word vectors:
